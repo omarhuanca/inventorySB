@@ -20,6 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import bo.umss.app.inventorySB.TestObjectBucket;
+import bo.umss.app.inventorySB.business.codeProduct.model.CodeProduct;
 import bo.umss.app.inventorySB.business.codeProduct.model.NotProvidedProvider;
 import bo.umss.app.inventorySB.business.codeProduct.repository.NotProvidedProviderRepository;
 import bo.umss.app.inventorySB.exception.EmptyFieldException;
@@ -61,6 +62,12 @@ public class NotProvidedProviderServiceTest {
 		notProvidedProviderList.add(notProvidedProvider);
 		Mockito.when(notProvidedProviderRepository.findAll()).thenReturn(notProvidedProviderList);
 		assertEquals(1, notProvidedProviderList.size());
+	}
+
+	@Test
+	public void verifyCanNotBeEmptyCodeProduct() {
+		assertThrows(EmptyFieldException.class, () -> notProvidedProviderService.existsByCode(""),
+				CodeProduct.CODE_CAN_NOT_BE_BLANK);
 	}
 
 	@Test

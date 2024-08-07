@@ -1,9 +1,6 @@
-package bo.umss.app.inventorySB.business.line.service.impl;
+package bo.umss.app.inventorySB.business.measurement.service.impl;
 
 import java.util.List;
-
-import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -13,9 +10,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import bo.umss.app.inventorySB.business.line.model.Line;
-import bo.umss.app.inventorySB.business.line.repository.LineRepository;
-import bo.umss.app.inventorySB.business.line.service.LineService;
+import bo.umss.app.inventorySB.business.measurement.model.Measurement;
+import bo.umss.app.inventorySB.business.measurement.repository.MeasurementRepository;
+import bo.umss.app.inventorySB.business.measurement.service.MeasurementService;
 import bo.umss.app.inventorySB.exception.BadParamsException;
 import bo.umss.app.inventorySB.exception.CrudException;
 import bo.umss.app.inventorySB.exception.EmptyFieldException;
@@ -23,16 +20,16 @@ import bo.umss.app.inventorySB.exception.EntityNotFoundException;
 import bo.umss.app.inventorySB.exception.UniqueViolationException;
 
 @Service
-public class LineServiceImpl implements LineService {
+public class MeasurementServiceImpl implements MeasurementService {
 
 	private Logger log = LogManager.getLogger(getClass());
 
 	@Autowired
-	private LineRepository repository;
+	private MeasurementRepository repository;
 
 	@Override
-	public Line create(Line entity) {
-		if (existsByName(entity.getName())) {
+	public Measurement create(Measurement entity) {
+		if (existsByCode(entity.getCode())) {
 			throw new UniqueViolationException(UniqueViolationException.DATA_DUPLICATE);
 		}
 
@@ -45,16 +42,9 @@ public class LineServiceImpl implements LineService {
 		}
 	}
 
-	@Transactional
 	@Override
-	public Line update(Line entity) {
-		try {
-			return repository.save(entity);
-		} catch (ConstraintViolationException e) {
-			throw new BadParamsException(e.getMessage());
-		} catch (DataAccessException e) {
-			throw new CrudException(CrudException.DATA_ACCESS);
-		}
+	public Measurement update(Measurement entity) {
+		return null;
 	}
 
 	@Override
@@ -64,13 +54,13 @@ public class LineServiceImpl implements LineService {
 	}
 
 	@Override
-	public Line read(Long key) {
+	public Measurement read(Long key) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Line> findAll() {
+	public List<Measurement> findAll() {
 		try {
 			return repository.findAll();
 		} catch (DataAccessException e) {
@@ -80,14 +70,13 @@ public class LineServiceImpl implements LineService {
 	}
 
 	@Override
-	public Line findByName(String potentialName) {
-
-		if (StringUtils.isBlank(potentialName)) {
-			throw new EmptyFieldException(Line.NAME_CAN_NOT_BE_BLANK);
+	public Measurement findByCode(String potentialCode) {
+		if (StringUtils.isBlank(potentialCode)) {
+			throw new EmptyFieldException(Measurement.CODE_CAN_NOT_BE_BLANK);
 		}
 
 		try {
-			Line entity = repository.findByName(potentialName);
+			Measurement entity = repository.findByCode(potentialCode);
 			if (null != entity) {
 				return entity;
 			} else {
@@ -100,13 +89,13 @@ public class LineServiceImpl implements LineService {
 	}
 
 	@Override
-	public boolean existsByName(String potentialName) {
-		if (StringUtils.isBlank(potentialName)) {
-			throw new EmptyFieldException(Line.NAME_CAN_NOT_BE_BLANK);
+	public boolean existsByCode(String potentialCode) {
+		if (StringUtils.isBlank(potentialCode)) {
+			throw new EmptyFieldException(Measurement.CODE_CAN_NOT_BE_BLANK);
 		}
 
 		try {
-			return repository.existsByName(potentialName);
+			return repository.existsByCode(potentialCode);
 		} catch (DataAccessException e) {
 			log.error(e.getMessage(), e);
 			throw new CrudException(CrudException.DATA_ACCESS);

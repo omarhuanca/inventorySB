@@ -14,6 +14,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import bo.umss.app.inventorySB.business.codeProduct.model.CodeProduct;
 import bo.umss.app.inventorySB.business.codeProduct.model.NotProvidedProvider;
 import bo.umss.app.inventorySB.business.codeProduct.repository.NotProvidedProviderRepository;
 import bo.umss.app.inventorySB.business.codeProduct.service.NotProvidedProviderService;
@@ -92,7 +93,7 @@ public class NotProvidedProviderServiceImpl implements NotProvidedProviderServic
 	@Override
 	public NotProvidedProvider findByCode(String potentialCode) {
 		if (StringUtils.isBlank(potentialCode)) {
-			throw new EmptyFieldException();
+			throw new EmptyFieldException(CodeProduct.CODE_CAN_NOT_BE_BLANK);
 		}
 
 		try {
@@ -110,6 +111,10 @@ public class NotProvidedProviderServiceImpl implements NotProvidedProviderServic
 
 	@Override
 	public boolean existsByCode(String potentialCode) {
+		if (StringUtils.isBlank(potentialCode)) {
+			throw new EmptyFieldException(CodeProduct.CODE_CAN_NOT_BE_BLANK);
+		}
+
 		try {
 			return repository.existsByCode(potentialCode);
 		} catch (DataAccessException e) {

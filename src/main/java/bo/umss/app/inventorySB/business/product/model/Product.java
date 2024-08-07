@@ -37,6 +37,9 @@ public class Product {
 		this.listTransaction = new ArrayList<>();
 	}
 
+	public Product() {
+	}
+
 	public static Product at(CodeProduct codeProduct, Stock stock, Price priceCost, Price priceSale) {
 		if (null == codeProduct)
 			throw new RuntimeException(CODE_CAN_NOT_BE_NULL);

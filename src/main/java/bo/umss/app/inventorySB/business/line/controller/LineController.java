@@ -25,7 +25,7 @@ import bo.umss.app.inventorySB.exception.CrudException;
 import bo.umss.app.inventorySB.exception.EntityNotFoundException;
 
 @RestController
-@RequestMapping("/api/v1/lines")
+@RequestMapping("/v1/lines")
 public class LineController implements CrudController<LineDto> {
 
 	@Autowired
@@ -75,8 +75,8 @@ public class LineController implements CrudController<LineDto> {
 	public List<LineDto> findAll() {
 		try {
 			List<LineDto> lineList = new ArrayList<>();
-			for (Line line : service.findAll()) {
-				lineList.add(mapper.toDto(line));
+			for (Line object : service.findAll()) {
+				lineList.add(mapper.toDto(object));
 			}
 
 			return lineList;

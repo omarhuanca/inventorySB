@@ -26,7 +26,7 @@ import bo.umss.app.inventorySB.exception.CrudException;
 import bo.umss.app.inventorySB.exception.EntityNotFoundException;
 
 @RestController
-@RequestMapping("/api/v1/notprovidedproviders")
+@RequestMapping("/v1/notprovidedproviders")
 public class NotProvidedProviderController implements CrudController<NotProvidedProviderDto> {
 
 	@Autowired
@@ -62,7 +62,6 @@ public class NotProvidedProviderController implements CrudController<NotProvided
 		} catch (EntityNotFoundException e) {
 			throw new EntityNotFoundException();
 		}
-
 	}
 
 	@Override

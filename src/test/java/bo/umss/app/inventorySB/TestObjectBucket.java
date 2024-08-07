@@ -38,10 +38,14 @@ public class TestObjectBucket {
 		Coin coin = Coin.at(CODE_BS);
 		Price priceCost = Price.at(5.0, coin);
 		Price priceSale = Price.at(10.0, coin);
-		Measurement measurement = Measurement.at(CODE_PZA);
+		Measurement measurement = createMeasurementPiece();
 		Stock stock = Stock.at(10, measurement);
 
 		return Product.at(notProvidedProvider, stock, priceCost, priceSale);
+	}
+
+	public Measurement createMeasurementPiece() {
+		return Measurement.at(CODE_PZA);
 	}
 
 	public Product createCup() {
@@ -49,7 +53,7 @@ public class TestObjectBucket {
 		Coin coin = Coin.at(CODE_BS);
 		Price priceCost = Price.at(8.0, coin);
 		Price priceSale = Price.at(16.0, coin);
-		Measurement measurement = Measurement.at(CODE_PZA);
+		Measurement measurement = createMeasurementPiece();
 		Stock stock = Stock.at(10, measurement);
 
 		return Product.at(notProvidedProvider, stock, priceCost, priceSale);
@@ -65,7 +69,7 @@ public class TestObjectBucket {
 		Coin coin = Coin.at(CODE_USA);
 		Price priceCost = Price.at(205.0, coin);
 		Price priceSale = Price.at(246.0, coin);
-		Measurement measurement = Measurement.at(CODE_PZA);
+		Measurement measurement = createMeasurementPiece();
 		Stock stock = Stock.at(80, measurement);
 
 		return Product.at(notProvidedProvider, stock, priceCost, priceSale);

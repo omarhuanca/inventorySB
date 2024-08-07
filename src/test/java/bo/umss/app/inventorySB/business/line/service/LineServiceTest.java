@@ -73,6 +73,11 @@ public class LineServiceTest {
 	}
 
 	@Test
+	public void verifyCanNotBeBlankName() {
+		assertThrows(EmptyFieldException.class, () -> lineService.existsByName(""));
+	}
+
+	@Test
 	public void verifyGetCorectName() {
 		String potentialName = "calderas";
 		Mockito.when(lineRepository.existsByName(potentialName)).thenReturn(Boolean.TRUE);
@@ -135,4 +140,3 @@ public class LineServiceTest {
 		assertThrows(EmptyFieldException.class, () -> lineService.findByName(""));
 	}
 }
-
